@@ -15,7 +15,6 @@ func CreateSession(userID uint, title string) (*models.ChatSession, error) {
 
 func SaveMessage(sessionID uint, role, content string) error {
 	msg := models.Message{
-		ChatSessionID: sessionID,
 		Sender:          role,
 		Content:       content,
 	}
@@ -40,4 +39,15 @@ func GetSessionMessages(sessionID uint) ([]models.Message, error) {
 	var messages []models.Message
 	err := config.DB.Where("chat_session_id = ?", sessionID).Order("id ASC").Find(&messages).Error
 	return messages, err
+}
+
+func GetLatestSession(userID uint) (*models.ChatSession, error) {
+	var session models.ChatSession
+
+	err := config.DB.
+		Where("user_id = ?", userID).
+		Order("id DESC").
+		First(&session).Error
+
+	return &session, err
 }

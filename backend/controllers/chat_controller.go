@@ -1,17 +1,20 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
+
 	"github.com/gin-gonic/gin"
 
 	"backend/models"
 	"backend/repository"
+	"backend/services"
 	"backend/utils"
 )
 
 type Request struct {
-	Message string `json:"message"`
-	SessionID uint `json:"session_id"`
+	Message   string `json:"message"`
+	SessionID uint   `json:"session_id"`
 }
 
 func Chat(c *gin.Context) {
@@ -23,24 +26,36 @@ func Chat(c *gin.Context) {
 	}
 
 	userInterface, _ := c.Get("user")
-	user := userInterface.(models.User)
+	user := userInterface.(*models.User)
 
-	var session *models.ChatSession
-	var err error
+	session, err := repository.GetLatestSession(user.ID)
 
-	if req.SessionID == 0 {
-		session, err = repository.CreateSession(user.ID, "New Chat")
+	if err != nil {
+		session, err = repository.CreateSession(user.ID, "Chat")
 		if err != nil {
 			c.JSON(500, gin.H{"error": "could not create session"})
 			return
 		}
-	} else {
-		session = &models.ChatSession{ID: req.SessionID}
 	}
 
 	repository.SaveMessage(session.ID, "user", req.Message)
 
-	response := "dummy ai reply"
+	messagesDB, _ := repository.GetSessionMessages(session.ID)
+
+	var fullPrompt string
+
+	for _, msg := range messagesDB {
+		fullPrompt += msg.Sender + ": " + msg.Content + "\n"
+	}
+
+	fullPrompt += "user: " + req.Message
+
+	response, err := services.CallAI(fullPrompt)
+	if err != nil {
+		fmt.Println("AI ERROR:", err) // 🔥 print actual error
+		c.JSON(500, gin.H{"error": err.Error()})
+		return
+	}
 
 	repository.SaveMessage(session.ID, "ai", response)
 
@@ -49,8 +64,8 @@ func Chat(c *gin.Context) {
 
 func GetSessions(c *gin.Context) {
 	userInterface, _ := c.Get("user")
-	user := userInterface.(models.User)
-	
+	user := userInterface.(*models.User)
+
 	sessions, err := repository.GetUserSessions(user.ID)
 	if err != nil {
 		c.JSON(500, gin.H{"error": "could not fetch sessions"})
