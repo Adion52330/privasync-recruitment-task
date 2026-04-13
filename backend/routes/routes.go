@@ -13,4 +13,7 @@ func RegisterRoutes(r *gin.Engine) {
 	authed := r.Group("/")
 	authed.Use(middleware.AuthMiddleware())
 	authed.GET("/me", controllers.CurrentUser)
+	authed.POST("/chat", controllers.Chat)
+	authed.GET("/sessions", controllers.GetSessions)
+	authed.GET("/sessions/:id/messages", controllers.GetMessages)
 }
