@@ -21,6 +21,11 @@ func Signup(c *gin.Context) {
 		return
 	}
 
+	if _, err := repository.GetUserByUsername(input.Username); err == nil {
+		c.JSON(http.StatusConflict, gin.H{"error": "User already exists"})
+		return
+	}
+
 	hashedPassword, err := utils.HashPassword(input.Password)
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to hash password"})
@@ -36,6 +41,7 @@ func Signup(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user"})
 		return
 	}
+
 
 	c.JSON(http.StatusOK, gin.H{"message": "User created successfully"})
 }
@@ -72,6 +78,6 @@ func CurrentUser(c *gin.Context) {
 	}
 
 	c.JSON(200, gin.H{
-		"user": user,
+		"username": user.(*models.User).Username,
 	})
 }

@@ -14,5 +14,6 @@ func RegisterRoutes(r *gin.Engine) {
 	authed.Use(middleware.AuthMiddleware())
 	authed.GET("/me", controllers.CurrentUser)
 	authed.POST("/chat", controllers.Chat)
+	authed.GET("/session", controllers.GetLatestSessionID)
 	authed.GET("/sessions/:id/messages", controllers.GetMessages)
 }

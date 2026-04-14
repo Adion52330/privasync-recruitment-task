@@ -74,3 +74,18 @@ func GetMessages(c *gin.Context) {
 		"messages": messages,
 	})
 }
+
+func GetLatestSessionID(c *gin.Context) {
+	userInterface, _ := c.Get("user")
+	user := userInterface.(*models.User)
+
+	session, err := repository.GetLatestSession(user.ID)
+	if err != nil {
+		c.JSON(500, gin.H{"error": "could not fetch session"})
+		return
+	}
+
+	c.JSON(200, gin.H{
+		"session_id": session.ID,
+	})
+}
