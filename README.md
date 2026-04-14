@@ -7,10 +7,15 @@ This is my submission to the priva-sync summer project recruitment task. Every u
 Backend -> Frontend -> Dockerization
 ```
 #### Snapshots
-![Image1](https://pub-1407f82391df4ab1951418d04be76914.r2.dev/uploads/2e02804d-affc-41a1-8846-b76f3bb98759.png)
-![Image2](https://pub-1407f82391df4ab1951418d04be76914.r2.dev/uploads/bb4f17a8-0b19-4c94-8cee-d50d97037f18.png)
-![Image3](https://pub-1407f82391df4ab1951418d04be76914.r2.dev/uploads/66182be2-da1c-4ef1-a2bc-8ebf00845012.png)
-![Image4](https://pub-1407f82391df4ab1951418d04be76914.r2.dev/uploads/bc947b4c-01e3-4544-8ce8-aec7a8207455.png)
+<p align="center">
+  <img src="https://pub-1407f82391df4ab19514180d4be76914.r2.dev/uploads/2e02804d-affc-41a1-8846-b76f3bb98759.png" width="45%" />
+  <img src="https://pub-1407f82391df4ab19514180d4be76914.r2.dev/uploads/bb4f17a8-0b19-4c94-8cee-d50d97037f18.png" width="45%" />
+</p>
+
+<p align="center">
+  <img src="https://pub-1407f82391df4ab19514180d4be76914.r2.dev/uploads/66182be2-da1c-4ef1-a2bc-8ebf00845018.png" width="45%" />
+  <img src="https://pub-1407f82391df4ab19514180d4be76914.r2.dev/uploads/bc947b4c-01e3-4544-8ce8-aec7a8207455.png" width="45%" />
+</p>
 
 ### Tech Stack
 - Backend: `golang`, `gin`, `postgresql`, `gorm`, `cors`
