@@ -31,9 +31,9 @@ func Chat(c *gin.Context) {
 	session, err := repository.GetLatestSession(user.ID)
 
 	if err != nil {
-		session, err = repository.CreateSession(user.ID, "Chat")
+		session, err = repository.CreateSession(user.ID, "Chat with AI")
 		if err != nil {
-			c.JSON(500, gin.H{"error": "could not create session"})
+			c.JSON(http.StatusInternalServerError, gin.H{"error": "could not create session"})
 			return
 		}
 	}
