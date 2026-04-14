@@ -52,7 +52,7 @@ func Chat(c *gin.Context) {
 
 	response, err := services.CallAI(fullPrompt)
 	if err != nil {
-		fmt.Println("AI ERROR:", err) // 🔥 print actual error
+		fmt.Println("AI ERROR:", err)
 		c.JSON(500, gin.H{"error": err.Error()})
 		return
 	}
@@ -60,21 +60,6 @@ func Chat(c *gin.Context) {
 	repository.SaveMessage(session.ID, "ai", response)
 
 	c.JSON(http.StatusOK, gin.H{"session_id": session.ID, "response": response})
-}
-
-func GetSessions(c *gin.Context) {
-	userInterface, _ := c.Get("user")
-	user := userInterface.(*models.User)
-
-	sessions, err := repository.GetUserSessions(user.ID)
-	if err != nil {
-		c.JSON(500, gin.H{"error": "could not fetch sessions"})
-		return
-	}
-
-	c.JSON(200, gin.H{
-		"messages": sessions,
-	})
 }
 
 func GetMessages(c *gin.Context) {
