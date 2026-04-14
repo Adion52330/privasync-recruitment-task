@@ -5,7 +5,7 @@ type NavbarProps = {
 
 export default function Navbar({ username, onLogout }: NavbarProps) {
   return (
-    <nav className="bg-white shadow-sm px-6 py-3 flex justify-between items-center mt-4 max-w-4xl mx-auto rounded-lg absolute left-1/2 transform -translate-x-1/2 w-full">
+    <nav className="bg-white shadow-sm px-6 py-3 flex justify-between items-center mt-4 max-w-5xl mx-auto rounded-lg absolute left-1/2 transform -translate-x-1/2 w-full">
       <div className="text-lg font-semibold text-gray-800">
         {username}
       </div>
