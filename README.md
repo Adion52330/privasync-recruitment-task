@@ -32,12 +32,12 @@ docker compose up --build
 ```
 
 ### Backend Endpoints
-- `POST``/signup`(unprotected) - Sends a username and password field, saves the user in the db, and responses 200 when success.
-- `POST``/login`(unprotected) - Sends a username and password field and responses with a Authorization bearer token which is used for overall protection of the app. Frontend saves it in the localstorage.
-- `GET``/me` - To obtain the username field
-- `POST``/chat` - User sends a message to the AI and the AI responses with its reponse and the session id.
-- `GET``/session` - Session id of the current session
-- `GET``/sessions/:id/messages` - Messages of the session
+- `POST` `/signup`(unprotected) - Sends a username and password field, saves the user in the db, and responses 200 when success.
+- `POST` `/login`(unprotected) - Sends a username and password field and responses with a Authorization bearer token which is used for overall protection of the app. Frontend saves it in the localstorage.
+- `GET` `/me` - To obtain the username field
+- `POST` `/chat` - User sends a message to the AI and the AI responses with its reponse and the session id.
+- `GET` `/session` - Session id of the current session
+- `GET` `/sessions/:id/messages` - Messages of the session
 
 ### Frontend Routes
 - `/signup`(unprotected) - adds the user to the db and redirects to login
